@@ -3,6 +3,7 @@ if(process.env.NODE_ENV !== 'production'){
 }
 const express = require('express')
 const redis = require('redis')
+const path = require('path')
 const bodyParser = require('body-parser')
 const  exphbs  = require('express-handlebars')
 const passport = require('passport')
@@ -10,7 +11,12 @@ const initializePassport = require('./passport.config')
 const session = require('express-session')
 const flash = require('express-flash')
 const methodOverride = require('method-override')
+// const dotenv = require('dotenv').config({path:'./.env'})
+const mongoose = require('mongoose')
+const User = require('./models/User')
 // const bcrypt = require('bcrypt')
+
+require('dotenv').config({path:'./.env'})
 
 initializePassport(
     passport,
@@ -20,7 +26,15 @@ initializePassport(
 
 const app = express()
 
+const dbURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@nodetuts.qlhc3.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+
+mongoose.connect(dbURI,{useNewUrlParser:true,useUnifiedTopology:true})
+.then((result) => app.listen(3000))
+.then(() => console.log('db Started'))
+.catch(err => console.log(err))
+
 const users = []
+
 
 // Handlebars
 app.engine('handlebars', exphbs({defaultLayout:'main'}));
@@ -75,6 +89,16 @@ app.post('/register',async (req,res) =>{
             password:req.body.password
         })
 
+        // Get to the data to db
+        const user = new User({
+            name:req.body.name,
+            email:req.body.email,
+            password:req.body.password
+        })
+
+        user.save()
+        .then(() => console.log('db saved'))
+
         res.redirect('/login')
 
     }catch{
@@ -108,6 +132,6 @@ function checkNotAuthenticated(req,res,next){
 }
 
 
-const port = process.env.PORT || 3000
+// const port = process.env.PORT || 3000
 
-app.listen(port,() => console.log(`Server connected ${port}`))
+// app.listen(port,() => console.log(`Server connected ${port}`))
