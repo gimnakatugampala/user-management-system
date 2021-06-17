@@ -40,9 +40,13 @@
       <td>{{email}}</td>
       <td>{{createdAt}}</td>
       <td>{{updatedAt}}</td>
-      <td><button class="btn btn-danger">Delete</button></td>
+      <td>
+          <form method="post" action="/{{_id}}?_method=DELETE">
+           <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        {{!-- <a href="/{{_id}}" class="btn btn-danger">Delete</a> --}}
+    </td>
     </tr>
-
     {{/each}}
   </tbody>
 </table>

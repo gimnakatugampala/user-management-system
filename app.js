@@ -16,6 +16,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 // const bcrypt = require('bcrypt')
 
+
 require('dotenv').config({path:'./.env'})
 
 initializePassport(
@@ -34,6 +35,7 @@ mongoose.connect(dbURI,{useNewUrlParser:true,useUnifiedTopology:true})
 .catch(err => console.log(err))
 
 const users = []
+
 
 
 // Handlebars
@@ -120,6 +122,13 @@ app.delete('/logout',(req,res) =>{
     req.logOut()
     res.redirect('/login')
 })
+
+app.delete('/:id', (req, res) => {
+    const { id } = req.params.id
+    console.log(id)
+
+    res.redirect('/')
+});
 
 
 function checkAuthenticated(req,res,next){
