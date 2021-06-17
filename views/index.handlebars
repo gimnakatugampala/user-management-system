@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <span class="text-dark mx-3">{{name}}</span>
@@ -28,31 +28,22 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Created At</th>
+      <th scope="col">Updated At</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Gimna</td>
-      <td>Katugampala</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+      {{#each users}}
+        <tr>
+      <th scope="row">{{_id}}</th>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{createdAt}}</td>
+      <td>{{updatedAt}}</td>
+      <td><button class="btn btn-danger">Delete</button></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Katugampala</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
+
+    {{/each}}
   </tbody>
 </table>
 

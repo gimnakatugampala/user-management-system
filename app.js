@@ -56,7 +56,14 @@ app.use(bodyParser.json())
 
 // Homepage
 app.get('/',checkAuthenticated,(req,res) =>{
-    res.render('index',{name:req.user.name})
+    User.find().lean()
+    .then((result) => {
+        res.render('index',{users:result,name:req.user.name})
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+
 })
 
 // Login
