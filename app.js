@@ -70,7 +70,7 @@ app.get('/',checkAuthenticated,(req,res) =>{
 
 // Login
 app.get('/login',checkNotAuthenticated,(req,res) =>{
-    res.render('login',{name:'Gimna'})
+    res.render('login',{name:'Gimna Katugampala'})
 })
 
 // Login
